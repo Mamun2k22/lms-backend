@@ -1,16 +1,9 @@
 import { config } from "dotenv";
 config();
 
-import { connectDB } from "./config/db.js";
 import app from "./app.js";
+import { connectDB } from "./config/db.js";
 
-const port = process.env.PORT || 4000;
+await connectDB(process.env.MONGODB_URI!);
 
-async function start() {
-  await connectDB(process.env.MONGODB_URI!);
-  app.listen(port, () => {
-    console.log(`🚀 API running at http://localhost:${port}`);
-  });
-}
-
-start();
+export default app; // ⬅️ no app.listen here
